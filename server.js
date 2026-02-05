@@ -16,7 +16,11 @@ app.use(express.json());
 app.use(cors());
 
 app.get('/', (req, res) => {
-  res.send('API is running...');
+  res.json({
+    status: "API Running",
+    service: "Product Management API"
+  });
+
 });
 
 // Routes
@@ -30,3 +34,8 @@ app.use('/api/salesmen', require('./routes/salesman.routes'));
 // Start server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
+app.use((req,res)=>{
+  res.status(404).json({ error: "Route not found" });
+});
+
